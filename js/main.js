@@ -1,4 +1,4 @@
-'use sctrict'
+'use strict';
 
 var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var types = ['palace', 'flat', 'house', 'bungalo'];
@@ -17,30 +17,30 @@ var MAX_ROOMS = 3;
 var MIN_GUESTS = 1;
 var MAX_GUESTS = 3;
 
-var getRandomInterval = function(min, max) {
+var getRandomInterval = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
-}
+};
 
-var getRandomFromArray = function(array) {
+var getRandomFromArray = function (array) {
   var arr = array[Math.floor(Math.random() * array.length)];
   return arr;
-}
+};
 
-var getRandomArrayFromArray = function(array) {
-  var randomArray =[];
+var getRandomArrayFromArray = function (array) {
+  var randomArray = [];
   var randomCount = Math.floor(Math.random() * array.length); // Получаем количество элементов будующего случайного массива
-  array.sort(function() {
-    return 0.5 - Math.random()
+  array.sort(function () {
+    return 0.5 - Math.random();
   }); // Сортируем входящий массив, чтобы порядок стал случайным
   for (var i = 0; i < randomCount; i++) {
     randomArray[i] = array[i];
-  } //Наполняем наш массив случайными элементами из входящего в функцию массива
+  } // Наполняем наш массив случайными элементами из входящего в функцию массива
   return randomArray;
-}
+};
 
-var createAds = function(count) {
+var createAds = function (count) {
   var ads = [];
-  for (var i = 0; i < count; i ++) {
+  for (var i = 0; i < count; i++) {
     var xCoordinate = getRandomInterval(LOCATION_X_MIN, LOCATION_X_MAX);
     var yCoordinate = getRandomInterval(LOCATION_Y_MIN, LOCATION_Y_MAX);
     var adElement = {
@@ -68,20 +68,17 @@ var createAds = function(count) {
     ads.push(adElement);
   }
   return ads;
-}
+};
 
 var ads = createAds(8);
-
-console.log(ads);
 
 var map = document.querySelector('.map');
 
 map.classList.remove('map--faded');
 
 var similarPin = document.querySelector('#pin').content.querySelector('.map__pin');
-var similarPinList = document.querySelector('.map__pins');
 
-var renderAd = function(ad) {
+var renderAd = function (ad) {
   var pinElement = similarPin.cloneNode(true);
 
   pinElement.setAttribute('style', 'left:' + ad.location.x + 'px' + '; top:' + ad.location.y + 'px');
@@ -89,11 +86,7 @@ var renderAd = function(ad) {
   pinElement.querySelector('img').setAttribute('src', ad.author.avatar);
 
   return pinElement;
-}
-
-console.log(renderAd(ads[2]));
-console.log(renderAd(ads[3]));
-console.log(renderAd(ads[4]));
+};
 
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < ads.length; i++) {
