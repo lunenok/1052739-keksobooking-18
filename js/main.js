@@ -1,10 +1,10 @@
 'use strict';
 
-var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-var types = ['palace', 'flat', 'house', 'bungalo'];
-var checkins = ['12:00', '13:00', '14:00'];
-var checkouts = ['12:00', '13:00', '14:00'];
-var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+var TYPES = ['palace', 'flat', 'house', 'bungalo'];
+var CHECKINS = ['12:00', '13:00', '14:00'];
+var CHECKOUTS = ['12:00', '13:00', '14:00'];
+var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var AD_TITLE = 'Предложение №';
 var LOCATION_X_MIN = 100;
 var LOCATION_X_MAX = 1000;
@@ -55,14 +55,14 @@ var createAds = function (count) {
         'title': AD_TITLE + ' ' + i,
         'address': xCoordinate + ' ' + yCoordinate,
         'price': getRandomInterval(MIN_PRICE, MAX_PRICE),
-        'type': getRandomFromArray(types),
+        'type': getRandomFromArray(TYPES),
         'rooms': getRandomInterval(MIN_ROOMS, MAX_ROOMS),
         'guests': getRandomInterval(MIN_GUESTS, MAX_GUESTS),
-        'checkins': getRandomFromArray(checkins),
-        'checkout': getRandomFromArray(checkouts),
-        'features': getRandomArrayFromArray(features),
+        'checkins': getRandomFromArray(CHECKINS),
+        'checkout': getRandomFromArray(CHECKOUTS),
+        'features': getRandomArrayFromArray(FEATURES),
         'description': 'Тут будет описание',
-        'photos': getRandomArrayFromArray(photos)
+        'photos': getRandomArrayFromArray(PHOTOS)
       }
     };
     ads.push(adElement);
@@ -89,9 +89,15 @@ var renderAd = function (ad) {
 };
 
 var fragment = document.createDocumentFragment();
-for (var i = 0; i < ads.length; i++) {
-  fragment.appendChild(renderAd(ads[i]));
+
+var renderAds = function () {
+  for (var i = 0; i < ads.length; i++) {
+    fragment.appendChild(renderAd(ads[i]));
+  }
 }
+
+renderAds();
+
 map.appendChild(fragment);
 
 
