@@ -94,7 +94,7 @@ var renderAds = function () {
   for (var i = 0; i < ads.length; i++) {
     fragment.appendChild(renderAd(ads[i]));
   }
-}
+};
 
 renderAds();
 
