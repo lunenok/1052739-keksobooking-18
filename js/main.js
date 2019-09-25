@@ -88,16 +88,14 @@ var renderAd = function (ad) {
   return pinElement;
 };
 
-var fragment = document.createDocumentFragment();
-
 var renderAds = function () {
+  var fragment = document.createDocumentFragment();
   for (var i = 0; i < ads.length; i++) {
     fragment.appendChild(renderAd(ads[i]));
   }
+  return fragment;
 };
 
-renderAds();
-
-map.appendChild(fragment);
+map.appendChild(renderAds());
 
 
