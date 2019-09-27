@@ -16,25 +16,26 @@ var MIN_ROOMS = 1;
 var MAX_ROOMS = 3;
 var MIN_GUESTS = 1;
 var MAX_GUESTS = 3;
+var map = document.querySelector('.map');
+var similarPin = document.querySelector('#pin').content.querySelector('.map__pin');
 
 var getRandomInterval = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
 var getRandomFromArray = function (array) {
-  var arr = array[Math.floor(Math.random() * array.length)];
-  return arr;
+  return array[getRandomInterval(1, array.length)];
 };
 
-var getRandomArrayFromArray = function (array) {
+var shuffleArray = function (array) {
   var randomArray = [];
-  var randomCount = Math.floor(Math.random() * array.length); // Получаем количество элементов будующего случайного массива
+  var randomCount = getRandomInterval(1, array.length);
   array.sort(function () {
     return 0.5 - Math.random();
-  }); // Сортируем входящий массив, чтобы порядок стал случайным
+  });
   for (var i = 0; i < randomCount; i++) {
     randomArray[i] = array[i];
-  } // Наполняем наш массив случайными элементами из входящего в функцию массива
+  }
   return randomArray;
 };
 
@@ -60,23 +61,15 @@ var createAds = function (count) {
         'guests': getRandomInterval(MIN_GUESTS, MAX_GUESTS),
         'checkins': getRandomFromArray(CHECKINS),
         'checkout': getRandomFromArray(CHECKOUTS),
-        'features': getRandomArrayFromArray(FEATURES),
+        'features': shuffleArray(FEATURES),
         'description': 'Тут будет описание',
-        'photos': getRandomArrayFromArray(PHOTOS)
+        'photos': shuffleArray(PHOTOS)
       }
     };
     ads.push(adElement);
   }
   return ads;
 };
-
-var ads = createAds(8);
-
-var map = document.querySelector('.map');
-
-map.classList.remove('map--faded');
-
-var similarPin = document.querySelector('#pin').content.querySelector('.map__pin');
 
 var renderAd = function (ad) {
   var pinElement = similarPin.cloneNode(true);
@@ -90,7 +83,7 @@ var renderAd = function (ad) {
 
 var renderAds = function () {
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < ads.length; i++) {
+  for (var i = 0, ads = createAds(8); i < ads.length; i++) {
     fragment.appendChild(renderAd(ads[i]));
   }
   return fragment;
@@ -98,4 +91,4 @@ var renderAds = function () {
 
 map.appendChild(renderAds());
 
-
+map.classList.remove('map--faded');
