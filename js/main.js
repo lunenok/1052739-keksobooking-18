@@ -172,7 +172,7 @@ var checkGuestValidity = function () {
     if (guestsArray[n].value > roomsMaxCapacity[rooms]) {
       guestsArray[n].setAttribute('disabled', true);
       guestsArray[n].removeAttribute('selected', true);
-      guestsArray[n+1].setAttribute('selected', true); //делаем максимальный элемент активным
+      guestsArray[n + 1].setAttribute('selected', true); // делаем максимальный элемент активным
     }
   }
 };
