@@ -29,6 +29,14 @@ var adressInput = document.querySelector('input[name=address]');
 var roomsNumber = document.querySelector('select[name=rooms]');
 var guestsNumber = document.querySelector('select[name=capacity]');
 var adFade = document.querySelector('.ad-form ');
+var guestsArray = guestsNumber.querySelectorAll('option');
+var guestsCount = guestsArray.length - 1;
+var roomsMaxCapacity = {
+  1: 1,
+  2: 2,
+  3: 3,
+  100: 0
+};
 
 var getRandomInterval = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -151,14 +159,6 @@ mainPin.addEventListener('keydown', function (evt) {
 
 var checkGuestValidity = function () {
   var rooms = roomsNumber.options[roomsNumber.selectedIndex].value;
-  var guestsArray = guestsNumber.querySelectorAll('option');
-  var guestsCount = guestsArray.length - 1;
-  var roomsMaxCapacity = {
-    1: 1,
-    2: 2,
-    3: 3,
-    100: 0
-  };
 
   for (var i = 0; i <= guestsCount; i++) {
     guestsArray[i].removeAttribute('disabled');
