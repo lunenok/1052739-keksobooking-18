@@ -102,33 +102,25 @@ var renderAds = function () {
 
 map.appendChild(renderAds());
 
-var checkFilters = function (state) {
-  for (var i = 0; i < formElements.length; i++) {
-    if (state) {
-      formElements[i].setAttribute('disabled', true);
+var hangeElementsAvailability = function (elements, status) {
+  for (var i = 0; i < elements.length; i++) {
+    if (status) {
+      elements[i].removeAttribute('disabled');
     } else {
-      formElements[i].removeAttribute('disabled');
+      elements[i].setAttribute('disabled', true);
     }
-  }
-  for (var n = 0; n < mapFilters.length; n++) {
-    if (state) {
-      mapFilters[n].setAttribute('disabled', true);
-    } else {
-      mapFilters[n].removeAttribute('disabled');
-    }
-  }
-  if (state) {
-    mapFeatures.setAttribute('disabled', true);
-  } else {
-    mapFeatures.removeAttribute('disabled');
-    adFade.classList.remove('ad-form--disabled');
-    map.classList.remove('map--faded');
   }
 };
 
-// Переписал функцию включения и отключения фильтров по аргументу. Используя тернарный оператор не работало
-// Была ошибка (Expected an assignment or function call and instead saw an expression)
-// Используя стандартную конструкцию else if строчек получилось больше, чем было
+var activateMap = function (state) {
+  if (state) {
+    mapFeatures.removeAttribute('disabled');
+    adFade.classList.remove('ad-form--disabled');
+    map.classList.remove('map--faded');
+  } else {
+    mapFeatures.setAttribute('disabled', true);
+  }
+};
 
 var setAdress = function (pin) {
   var x = pin.offsetTop + Math.floor(PIN_WIDTH / 2);
@@ -136,17 +128,22 @@ var setAdress = function (pin) {
   adressInput.value = 'X: ' + x + ', Y: ' + y;
 };
 
-checkFilters(true);
+hangeElementsAvailability(formElements, false);
+hangeElementsAvailability(mapFilters, false);
 
 mainPin.addEventListener('mousedown', function () {
-  checkFilters(false);
+  hangeElementsAvailability(formElements, true);
+  hangeElementsAvailability(mapFilters, true);
+  activateMap(true);
   setAdress(mainPin);
   checkGuestValidity();
 });
 
 mainPin.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    checkFilters(false);
+    hangeElementsAvailability(formElements, true);
+    hangeElementsAvailability(mapFilters, true);
+    activateMap(true);
     setAdress(mainPin);
     checkGuestValidity();
   }
