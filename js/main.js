@@ -110,7 +110,7 @@ var renderAds = function () {
 
 map.appendChild(renderAds());
 
-var hangeElementsAvailability = function (elements, status) {
+var changeElementsAvailability = function (elements, status) {
   for (var i = 0; i < elements.length; i++) {
     if (status) {
       elements[i].removeAttribute('disabled');
@@ -136,24 +136,24 @@ var setAdress = function (pin) {
   adressInput.value = 'X: ' + x + ', Y: ' + y;
 };
 
-hangeElementsAvailability(formElements, false);
-hangeElementsAvailability(mapFilters, false);
+changeElementsAvailability(formElements, false);
+changeElementsAvailability(mapFilters, false);
 
-mainPin.addEventListener('mousedown', function () {
-  hangeElementsAvailability(formElements, true);
-  hangeElementsAvailability(mapFilters, true);
+var activateForm = function () {
+  changeElementsAvailability(formElements, true);
+  changeElementsAvailability(mapFilters, true);
   activateMap(true);
   setAdress(mainPin);
   checkGuestValidity();
+};
+
+mainPin.addEventListener('mousedown', function () {
+  activateForm();
 });
 
 mainPin.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    hangeElementsAvailability(formElements, true);
-    hangeElementsAvailability(mapFilters, true);
-    activateMap(true);
-    setAdress(mainPin);
-    checkGuestValidity();
+    activateForm();
   }
 });
 
