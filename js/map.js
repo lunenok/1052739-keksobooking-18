@@ -1,11 +1,10 @@
 'use strict';
 
 (function () {
-  var ENTER_KEYCODE = 13;
   var PIN_WIDTH = 65;
   var PIN_HEIGHT = 87;
-  var map = document.querySelector('.map');
-  var similarPin = document.querySelector('#pin').content.querySelector('.map__pin');
+  window.map = document.querySelector('.map');
+  // var similarPin = document.querySelector('#pin').content.querySelector('.map__pin');
   var mainPin = document.querySelector('.map__pin--main');
   var formElements = document.querySelectorAll('.ad-form__element');
   var mapFilters = document.querySelectorAll('.map__filter');
@@ -14,31 +13,31 @@
   var roomsNumber = document.querySelector('select[name=rooms]');
   var adFade = document.querySelector('.ad-form ');
 
-  var renderAd = function (ad) {
-    var pinElement = similarPin.cloneNode(true);
+  // var renderAd = function (ad) {
+  //   var pinElement = similarPin.cloneNode(true);
 
-    pinElement.setAttribute('style', 'left:' + ad.location.x + 'px' + '; top:' + ad.location.y + 'px');
-    pinElement.setAttribute('alt', ad.offer.title);
-    pinElement.querySelector('img').setAttribute('src', ad.author.avatar);
+  //   pinElement.setAttribute('style', 'left:' + ad.location.x + 'px' + '; top:' + ad.location.y + 'px');
+  //   pinElement.setAttribute('alt', ad.offer.title);
+  //   pinElement.querySelector('img').setAttribute('src', ad.author.avatar);
 
-    return pinElement;
-  };
+  //   return pinElement;
+  // };
 
-  var renderAds = function () {
-    var fragment = document.createDocumentFragment();
-    for (var i = 0, ads = window.createAds(8); i < ads.length; i++) {
-      fragment.appendChild(renderAd(ads[i]));
-    }
-    return fragment;
-  };
+  // var renderAds = function () {
+  //   var fragment = document.createDocumentFragment();
+  //   for (var i = 0, ads = window.createAds(8); i < ads.length; i++) {
+  //     fragment.appendChild(renderAd(ads[i]));
+  //   }
+  //   return fragment;
+  // };
 
-  map.appendChild(renderAds());
+  // map.appendChild(renderAds());
 
   var activateMap = function (state) {
     if (state) {
       mapFeatures.removeAttribute('disabled');
       adFade.classList.remove('ad-form--disabled');
-      map.classList.remove('map--faded');
+      window.map.classList.remove('map--faded');
     } else {
       mapFeatures.setAttribute('disabled', true);
     }
@@ -66,7 +65,7 @@
   });
 
   mainPin.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
+    if (evt.keyCode === window.ENTER_KEYCODE) {
       activateForm();
     }
   });

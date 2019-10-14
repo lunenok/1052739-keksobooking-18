@@ -18,31 +18,11 @@
   var MIN_GUESTS = 1;
   var MAX_GUESTS = 3;
 
-  window.getRandomInterval = function (min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-  };
-
-  window.getRandomFromArray = function (array) {
-    return array[window.getRandomInterval(1, array.length)];
-  };
-
-  window.shuffleArray = function (array) {
-    var randomArray = [];
-    var randomCount = window.getRandomInterval(1, array.length);
-    array.sort(function () {
-      return 0.5 - Math.random();
-    });
-    for (var i = 0; i < randomCount; i++) {
-      randomArray[i] = array[i];
-    }
-    return randomArray;
-  };
-
   window.createAds = function (count) {
     var ads = [];
     for (var i = 0; i < count; i++) {
-      var xCoordinate = window.getRandomInterval(LOCATION_X_MIN, LOCATION_X_MAX);
-      var yCoordinate = window.getRandomInterval(LOCATION_Y_MIN, LOCATION_Y_MAX);
+      var xCoordinate = window.utils.getRandomInterval(LOCATION_X_MIN, LOCATION_X_MAX);
+      var yCoordinate = window.utils.getRandomInterval(LOCATION_Y_MIN, LOCATION_Y_MAX);
       var adElement = {
         'author': {
           'avatar': 'img/avatars/user0' + (i + 1) + '.png'
@@ -54,15 +34,15 @@
         'offer': {
           'title': AD_TITLE + ' ' + i,
           'address': xCoordinate + ' ' + yCoordinate,
-          'price': window.getRandomInterval(MIN_PRICE, MAX_PRICE),
-          'type': window.getRandomFromArray(TYPES),
-          'rooms': window.getRandomInterval(MIN_ROOMS, MAX_ROOMS),
-          'guests': window.getRandomInterval(MIN_GUESTS, MAX_GUESTS),
-          'checkins': window.getRandomFromArray(CHECKINS),
-          'checkout': window.getRandomFromArray(CHECKOUTS),
-          'features': window.shuffleArray(FEATURES),
+          'price': window.utils.getRandomInterval(MIN_PRICE, MAX_PRICE),
+          'type': window.utils.getRandomFromArray(TYPES),
+          'rooms': window.utils.getRandomInterval(MIN_ROOMS, MAX_ROOMS),
+          'guests': window.utils.getRandomInterval(MIN_GUESTS, MAX_GUESTS),
+          'checkins': window.utils.getRandomFromArray(CHECKINS),
+          'checkout': window.utils.getRandomFromArray(CHECKOUTS),
+          'features': window.utils.shuffleArray(FEATURES),
           'description': 'Тут будет описание',
-          'photos': window.shuffleArray(PHOTOS)
+          'photos': window.utils.shuffleArray(PHOTOS)
         }
       };
       ads.push(adElement);
