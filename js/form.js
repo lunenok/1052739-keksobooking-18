@@ -12,7 +12,6 @@
     100: 0
   };
 
-
   window.changeElementsAvailability = function (elements, status) {
     for (var i = 0; i < elements.length; i++) {
       if (status) {
