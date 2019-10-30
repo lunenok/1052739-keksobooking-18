@@ -13,13 +13,28 @@
     return pinElement;
   };
 
-window.load (function(data) {
+  var successHandler = function (data) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < data.length; i++) {
       fragment.appendChild(renderAd(data[i]));
     }
     window.map.appendChild(fragment);
-});
+  }
+
+  var errorHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: gray; width: 1200px';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '24px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  }
+
+  window.load(successHandler, errorHandler);
+  // });
 
   // var renderAds = function () {
   //   var fragment = document.createDocumentFragment();
