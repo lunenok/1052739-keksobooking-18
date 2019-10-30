@@ -19,7 +19,7 @@
       fragment.appendChild(renderAd(data[i]));
     }
     window.map.appendChild(fragment);
-  }
+  };
 
   var errorHandler = function (errorMessage) {
     var node = document.createElement('div');
@@ -31,7 +31,7 @@
 
     node.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', node);
-  }
+  };
 
   window.load(successHandler, errorHandler);
   // });
