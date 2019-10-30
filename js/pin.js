@@ -13,13 +13,21 @@
     return pinElement;
   };
 
-  var renderAds = function () {
+window.load (function(data) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0, ads = window.createAds(8); i < ads.length; i++) {
-      fragment.appendChild(renderAd(ads[i]));
+    for (var i = 0; i < data.length; i++) {
+      fragment.appendChild(renderAd(data[i]));
     }
-    return fragment;
-  };
+    window.map.appendChild(fragment);
+});
 
-  window.map.appendChild(renderAds());
+  // var renderAds = function () {
+  //   var fragment = document.createDocumentFragment();
+  //   for (var i = 0, ads = window.createAds(8); i < ads.length; i++) {
+  //     fragment.appendChild(renderAd(ads[i]));
+  //   }
+  //   return fragment;
+  // };
+
+  // window.map.appendChild(renderAds());
 })();
