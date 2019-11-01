@@ -26,13 +26,14 @@
     cardElement.querySelector('.popup__avatar').setAttribute('src', cardData.author.avatar);
 
     var setFeatures = function () {
-      features.innerHTML = ''
+      features.innerHTML = '';
+
       for (var i = 0; i < cardData.offer.features.length; i++) {
         var newFeature = document.createElement('li');
         newFeature.classList.add('popup__feature', 'popup__feature--' + cardData.offer.features[i]);
         features.appendChild(newFeature);
       }
-    }
+    };
 
     setFeatures();
 
