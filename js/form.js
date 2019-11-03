@@ -8,6 +8,8 @@
   var headlineInput = document.querySelector('#title');
   var priceInput = document.querySelector('#price');
   var apartamentType = document.querySelector('#type');
+  var timeInInput = document.querySelector('#timein');
+  var timeOutInput = document.querySelector('#timeout');
   var roomsMaxCapacity = {
     1: 1,
     2: 2,
@@ -70,15 +72,30 @@
   apartamentType.addEventListener('change', checkMinPrice);
 
   priceInput.addEventListener('invalid', function () {
+    var curentType = apartamentType.value;
     if (priceInput.validity.typeMismatch) {
       priceInput.setCustomValidity('Должно быть число');
     } else if (priceInput.validity.rangeOverflow) {
       priceInput.setCustomValidity('Не должно быть больше 1 000 000');
+    } else if (priceInput.validity.rangeUnderflow) {
+      priceInput.setCustomValidity('Минимальная стоимость для выбранного типа жилья: ' + MIN_PRICE[curentType] + ' руб.');
     } else if (priceInput.validity.valueMissing) {
       priceInput.setCustomValidity('Обязательное поле');
     } else {
       priceInput.setCustomValidity('');
     }
+  });
+
+  var syncTime = function (time01, time02) {
+    time01.value = time02.value;
+  };
+
+  timeInInput.addEventListener('change', function () {
+    syncTime(timeOutInput, timeInInput);
+  });
+
+  timeOutInput.addEventListener('change', function () {
+    syncTime(timeInInput, timeOutInput);
   });
 
   window.form = {
