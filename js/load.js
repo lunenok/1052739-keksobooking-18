@@ -5,7 +5,7 @@
   var XHR_OK_CODE = 200;
   var XHR_TIMEOUT_MAX = 10000;
 
-  window.load = function (onSuccess, onError) {
+  var load = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -30,13 +30,19 @@
     xhr.send();
   };
 
-  window.errorHandler = function (errorMessage) {
+  var errorHandler = function (errorMessage) {
     var errorWindow = document.querySelector('#error').content.querySelector('.error');
     errorWindow.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', errorWindow);
   };
 
-  window.getData = function (loadedData) {
+  var getData = function (loadedData) {
     window.DATA = loadedData;
+  };
+
+  window.load = {
+    load: load,
+    errorHandler: errorHandler,
+    getData: getData
   };
 })();

@@ -30,10 +30,10 @@
     return pinElement;
   };
 
-  window.PinSuccessHandler = function (data) {
+  window.PinSuccessHandler = function () {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < data.length; i++) {
-      fragment.appendChild(renderAd(data[i], i));
+    for (var i = 0; i < window.DATA.length; i++) {
+      fragment.appendChild(renderAd(window.DATA[i], i));
     }
     window.map.appendChild(fragment);
   };

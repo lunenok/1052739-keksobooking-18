@@ -12,14 +12,15 @@
   var roomsNumber = document.querySelector('select[name=rooms]');
   var adFade = document.querySelector('.ad-form ');
 
+  window.load.load(window.load.getData, window.load.errorHandler);
+
   var activateMap = function (state) {
     if (state) {
       mapFeatures.removeAttribute('disabled');
       adFade.classList.remove('ad-form--disabled');
       window.map.classList.remove('map--faded');
       window.form.checkMinPrice();
-      window.load(window.getData, window.errorHandler);
-      window.load(window.PinSuccessHandler, window.errorHandler);
+      window.PinSuccessHandler();
     } else {
       mapFeatures.setAttribute('disabled', true);
     }
@@ -34,23 +35,25 @@
   window.changeElementsAvailability(formElements, false);
   window.changeElementsAvailability(mapFilters, false);
 
+  var onPressEnter = function (evt) {
+    if (evt.keyCode === window.ENTER_KEYCODE) {
+      activateForm();
+    }
+  };
+
   var activateForm = function () {
     window.changeElementsAvailability(formElements, true);
     window.changeElementsAvailability(mapFilters, true);
     activateMap(true);
     setAdress(mainPin);
     window.checkGuestValidity();
+    mainPin.removeEventListener('mousedown', activateForm);
+    mainPin.removeEventListener('keydown', onPressEnter);
   };
 
-  mainPin.addEventListener('mousedown', function () {
-    activateForm();
-  });
+  mainPin.addEventListener('mousedown', activateForm);
 
-  mainPin.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.ENTER_KEYCODE) {
-      activateForm();
-    }
-  });
+  mainPin.addEventListener('keydown', onPressEnter);
 
   roomsNumber.addEventListener('change', function () {
     window.checkGuestValidity();

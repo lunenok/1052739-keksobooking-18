@@ -75,6 +75,10 @@
   };
 
   window.cardHandler = function (index) {
+    var existCard = document.querySelector('.map__card');
+    if (existCard) {
+      window.map.removeChild(existCard);
+    }
     var fragment = document.createDocumentFragment();
     fragment.appendChild(renderCard(index));
     window.map.appendChild(fragment);
