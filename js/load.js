@@ -30,6 +30,12 @@
     xhr.send();
   };
 
+  window.errorHandler = function (errorMessage) {
+    var errorWindow = document.querySelector('#error').content.querySelector('.error');
+    errorWindow.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', errorWindow);
+  };
+
   window.getData = function (loadedData) {
     window.DATA = loadedData;
   };

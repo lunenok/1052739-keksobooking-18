@@ -30,19 +30,11 @@
     return pinElement;
   };
 
-  var successHandler = function (data) {
+  window.PinSuccessHandler = function (data) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < data.length; i++) {
       fragment.appendChild(renderAd(data[i], i));
     }
     window.map.appendChild(fragment);
   };
-
-  var errorHandler = function (errorMessage) {
-    var errorWindow = document.querySelector('#error').content.querySelector('.error');
-    errorWindow.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', errorWindow);
-  };
-
-  window.load(successHandler, errorHandler);
 })();

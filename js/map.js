@@ -17,6 +17,9 @@
       mapFeatures.removeAttribute('disabled');
       adFade.classList.remove('ad-form--disabled');
       window.map.classList.remove('map--faded');
+      window.form.checkMinPrice();
+      window.load(window.getData, window.errorHandler);
+      window.load(window.PinSuccessHandler, window.errorHandler);
     } else {
       mapFeatures.setAttribute('disabled', true);
     }
@@ -37,7 +40,6 @@
     activateMap(true);
     setAdress(mainPin);
     window.checkGuestValidity();
-    window.load(window.getData);
   };
 
   mainPin.addEventListener('mousedown', function () {

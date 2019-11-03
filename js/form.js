@@ -5,11 +5,20 @@
   var guestsNumber = document.querySelector('select[name=capacity]');
   var guestsArray = guestsNumber.querySelectorAll('option');
   var guestsCount = guestsArray.length - 1;
+  var headlineInput = document.querySelector('#title');
+  var priceInput = document.querySelector('#price');
+  var apartamentType = document.querySelector('#type');
   var roomsMaxCapacity = {
     1: 1,
     2: 2,
     3: 3,
     100: 0
+  };
+  var MIN_PRICE = {
+    'bungalo': 0,
+    'flat': 1000,
+    'house': 5000,
+    'palace': 10000
   };
 
   window.changeElementsAvailability = function (elements, status) {
@@ -37,5 +46,42 @@
         guestsArray[n + 1].setAttribute('selected', true); // делаем максимальный элемент активным
       }
     }
+  };
+
+  headlineInput.addEventListener('invalid', function () {
+    if (headlineInput.validity.tooShort) {
+      headlineInput.setCustomValidity('Имя должно состоять минимум из 30 символов');
+    } else if (headlineInput.validity.tooLong) {
+      headlineInput.setCustomValidity('Имя не должно превышать 1000 символов');
+    } else if (headlineInput.validity.valueMissing) {
+      headlineInput.setCustomValidity('Обязательное поле');
+    } else {
+      headlineInput.setCustomValidity('');
+    }
+  });
+
+  var checkMinPrice = function () {
+    var curentType = apartamentType.value;
+    var minPrice = MIN_PRICE[curentType];
+    priceInput.setAttribute('placeholder', minPrice);
+    priceInput.setAttribute('min', minPrice);
+  };
+
+  apartamentType.addEventListener('change', checkMinPrice);
+
+  priceInput.addEventListener('invalid', function () {
+    if (priceInput.validity.typeMismatch) {
+      priceInput.setCustomValidity('Должно быть число');
+    } else if (priceInput.validity.rangeOverflow) {
+      priceInput.setCustomValidity('Не должно быть больше 1 000 000');
+    } else if (priceInput.validity.valueMissing) {
+      priceInput.setCustomValidity('Обязательное поле');
+    } else {
+      priceInput.setCustomValidity('');
+    }
+  });
+
+  window.form = {
+    checkMinPrice: checkMinPrice
   };
 })();
