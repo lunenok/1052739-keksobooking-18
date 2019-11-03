@@ -8,6 +8,25 @@
     var similarListPhotos = cardElement.querySelector('.popup__photos');
     var defaultPhoto = cardElement.querySelector('.popup__photo');
     var features = cardElement.querySelector('.popup__features');
+    var closeButton = cardElement.querySelector('.popup__close');
+
+    var onCardClose = function (evt) {
+      evt.preventDefault();
+      cardElement.remove();
+      cardElement.removeEventListener('click', onCardClose);
+    };
+
+    var onCardEsc = function (evt) {
+      evt.preventDefault();
+      if (evt.keyCode === window.ESC_KEYCODE) {
+        cardElement.remove();
+        document.removeEventListener('keydown', onCardEsc);
+      }
+    };
+
+    document.addEventListener('keydown', onCardEsc);
+
+    closeButton.addEventListener('click', onCardClose);
 
     var TypeOffers = {
       palace: 'Дворец',
@@ -55,11 +74,11 @@
     return cardElement;
   };
 
-  var successHandler = function (data) {
+  var cardHandler = function (data, i) {
     var fragment = document.createDocumentFragment();
-    fragment.appendChild(renderCard(data[3]));
+    fragment.appendChild(renderCard(data[i]));
     window.map.appendChild(fragment);
   };
 
-  window.load(successHandler);
+  window.load(cardHandler.bind(this, 0));
 })();
