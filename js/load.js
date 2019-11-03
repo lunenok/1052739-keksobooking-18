@@ -29,4 +29,8 @@
 
     xhr.send();
   };
+
+  window.getData = function (loadedData) {
+    window.DATA = loadedData;
+  };
 })();

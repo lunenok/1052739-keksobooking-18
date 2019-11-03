@@ -37,6 +37,7 @@
     activateMap(true);
     setAdress(mainPin);
     window.checkGuestValidity();
+    window.load(window.getData);
   };
 
   mainPin.addEventListener('mousedown', function () {

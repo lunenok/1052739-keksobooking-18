@@ -3,19 +3,19 @@
 (function () {
   var similarPin = document.querySelector('#pin').content.querySelector('.map__pin');
 
-  var onPinClick = function (evt, index) {
+  var onPinClick = function (evt) {
+    var id;
+
     var element = evt.target;
 
     if (element.tagName === 'IMG') {
-      var id = element.parentNode.getAttribute('rel')
+      id = element.parentNode.getAttribute('rel');
     } else {
-      var id = element.getAttribute('rel');
+      id = element.getAttribute('rel');
     }
 
-    console.log(id);
-
-    index(id);
-  }
+    window.cardHandler(id);
+  };
 
   var renderAd = function (ad, index) {
     var pinElement = similarPin.cloneNode(true);
