@@ -26,6 +26,7 @@
     'palace': 10000
   };
 
+
   window.changeElementsAvailability = function (elements, status) {
     for (var i = 0; i < elements.length; i++) {
       if (status) {
@@ -101,6 +102,11 @@
     syncTime(timeInInput, timeOutInput);
   });
 
+  var reset = function () {
+    adForm.reset();
+    window.mapfunction.setPinDefault();
+  };
+
   var onSuccessWindowEsc = function (evt) {
     evt.preventDefault();
     var successForm = document.querySelector('.success');
@@ -108,6 +114,7 @@
       successForm.remove();
       document.removeEventListener('keydown', onSuccessWindowEsc);
     }
+    reset();
   };
 
   var onSuccessWindowMouseDown = function (evt) {
@@ -115,6 +122,7 @@
     var successForm = document.querySelector('.success');
     successForm.remove();
     document.removeEventListener('mousedown', onSuccessWindowMouseDown);
+    reset();
   };
 
   var successUpload = function () {

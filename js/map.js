@@ -6,6 +6,10 @@
   var MAP_WIDTH = 1200;
   var MAP_HEIGHT = 630;
   var MAP_SKY_Y = 170;
+  var DEFAULT_PIN_COORD = {
+    x: 570,
+    y: 375
+  };
   window.map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
   var formElements = document.querySelectorAll('.ad-form__element');
@@ -128,4 +132,14 @@
   roomsNumber.addEventListener('change', function () {
     window.checkGuestValidity();
   });
+
+  var setPinDefault = function () {
+    mainPin.style.left = DEFAULT_PIN_COORD.x + 'px';
+    mainPin.style.top = DEFAULT_PIN_COORD.y + 'px';
+    setAdress(mainPin);
+  };
+
+  window.mapfunction = {
+    setPinDefault: setPinDefault
+  }
 })();
