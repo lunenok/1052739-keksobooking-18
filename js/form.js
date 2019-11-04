@@ -10,6 +10,9 @@
   var apartamentType = document.querySelector('#type');
   var timeInInput = document.querySelector('#timein');
   var timeOutInput = document.querySelector('#timeout');
+  var adForm = document.querySelector('.ad-form');
+  var successUploadForm = document.querySelector('#success').content.querySelector('.success');
+  var badUploadForm = document.querySelector('#error').content.querySelector('.error');
   var roomsMaxCapacity = {
     1: 1,
     2: 2,
@@ -96,6 +99,43 @@
 
   timeOutInput.addEventListener('change', function () {
     syncTime(timeInInput, timeOutInput);
+  });
+
+  var onSuccessWindowEsc = function (evt) {
+    evt.preventDefault();
+    var successForm = document.querySelector('.success');
+    if (evt.keyCode === window.ESC_KEYCODE) {
+      successForm.remove();
+      document.removeEventListener('keydown', onSuccessWindowEsc);
+    }
+  };
+
+  var onSuccessWindowMouseDown = function (evt) {
+    evt.preventDefault();
+    var successForm = document.querySelector('.success');
+    successForm.remove();
+    document.removeEventListener('mousedown', onSuccessWindowMouseDown);
+  };
+
+  var successUpload = function () {
+    window.map.appendChild(successUploadForm);
+    document.addEventListener('keydown', onSuccessWindowEsc);
+    document.addEventListener('mousedown', onSuccessWindowMouseDown);
+  };
+
+  var renderErrorWindow = function (message) {
+    var errorWindow = badUploadForm.cloneNode(true);
+    var newElement = document.createElement('p');
+    var elementBefore = errorWindow.querySelector('.error__message');
+    newElement.textContent = message;
+    newElement.style = 'color: white; font: 24px';
+    elementBefore.parentNode.insertBefore(newElement, elementBefore.nextSibling);
+    window.map.appendChild(errorWindow);
+  };
+
+  adForm.addEventListener('submit', function (evt) {
+    window.upload.upload(new FormData(adForm), successUpload, renderErrorWindow);
+    evt.preventDefault();
   });
 
   window.form = {
