@@ -84,7 +84,7 @@
       };
 
       var mapCoord = {
-        minX: - (PIN_WIDTH / 2),
+        minX: -PIN_WIDTH / 2,
         maxX: MAP_WIDTH - PIN_WIDTH / 2,
         maxY: MAP_HEIGHT,
         minY: MAP_SKY_Y - PIN_HEIGHT
