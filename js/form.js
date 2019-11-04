@@ -26,8 +26,7 @@
     'palace': 10000
   };
 
-
-  window.changeElementsAvailability = function (elements, status) {
+  var changeElementsAvailability = function (elements, status) {
     for (var i = 0; i < elements.length; i++) {
       if (status) {
         elements[i].removeAttribute('disabled');
@@ -37,7 +36,7 @@
     }
   };
 
-  window.checkGuestValidity = function () {
+  var checkGuestValidity = function () {
     var rooms = roomsNumber.options[roomsNumber.selectedIndex].value;
 
     for (var i = 0; i <= guestsCount; i++) {
@@ -104,7 +103,7 @@
 
   var reset = function () {
     adForm.reset();
-    window.mapfunction.setPinDefault();
+    window.map.setPinDefault();
   };
 
   var onSuccessWindowEsc = function (evt) {
@@ -112,9 +111,9 @@
     var successForm = document.querySelector('.success');
     if (evt.keyCode === window.ESC_KEYCODE) {
       successForm.remove();
+      reset();
       document.removeEventListener('keydown', onSuccessWindowEsc);
     }
-    reset();
   };
 
   var onSuccessWindowMouseDown = function (evt) {
@@ -126,7 +125,7 @@
   };
 
   var successUpload = function () {
-    window.map.appendChild(successUploadForm);
+    window.map.mapSection.appendChild(successUploadForm);
     document.addEventListener('keydown', onSuccessWindowEsc);
     document.addEventListener('mousedown', onSuccessWindowMouseDown);
   };
@@ -138,7 +137,7 @@
     newElement.textContent = message;
     newElement.style = 'color: white; font: 24px';
     elementBefore.parentNode.insertBefore(newElement, elementBefore.nextSibling);
-    window.map.appendChild(errorWindow);
+    window.map.mapSection.appendChild(errorWindow);
   };
 
   adForm.addEventListener('submit', function (evt) {
@@ -147,6 +146,8 @@
   });
 
   window.form = {
-    checkMinPrice: checkMinPrice
+    checkMinPrice: checkMinPrice,
+    changeElementsAvailability: changeElementsAvailability,
+    checkGuestValidity: checkGuestValidity
   };
 })();

@@ -56,14 +56,16 @@
     var onCardClose = function (evt) {
       evt.preventDefault();
       cardElement.remove();
-      cardElement.removeEventListener('click', onCardClose);
+      closeButton.removeEventListener('click', onCardClose);
+      document.removeEventListener('keydown', onCardEsc);
     };
 
     var onCardEsc = function (evt) {
-      evt.preventDefault();
+      // evt.preventDefault();
       if (evt.keyCode === window.ESC_KEYCODE) {
         cardElement.remove();
         document.removeEventListener('keydown', onCardEsc);
+        closeButton.removeEventListener('click', onCardClose);
       }
     };
 
@@ -77,10 +79,10 @@
   window.cardHandler = function (index) {
     var existCard = document.querySelector('.map__card');
     if (existCard) {
-      window.map.removeChild(existCard);
+      window.map.mapSection.removeChild(existCard);
     }
     var fragment = document.createDocumentFragment();
     fragment.appendChild(renderCard(index));
-    window.map.appendChild(fragment);
+    window.map.mapSection.appendChild(fragment);
   };
 })();

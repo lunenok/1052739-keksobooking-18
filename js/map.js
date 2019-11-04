@@ -10,7 +10,7 @@
     x: 570,
     y: 375
   };
-  window.map = document.querySelector('.map');
+  var mapSection = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
   var formElements = document.querySelectorAll('.ad-form__element');
   var mapFilters = document.querySelectorAll('.map__filter');
@@ -25,7 +25,7 @@
     if (state) {
       mapFeatures.removeAttribute('disabled');
       adFade.classList.remove('ad-form--disabled');
-      window.map.classList.remove('map--faded');
+      mapSection.classList.remove('map--faded');
       window.form.checkMinPrice();
       window.pinSuccessHandler();
     } else {
@@ -39,8 +39,8 @@
     adressInput.value = 'X: ' + x + ', Y: ' + y;
   };
 
-  window.changeElementsAvailability(formElements, false);
-  window.changeElementsAvailability(mapFilters, false);
+  window.form.changeElementsAvailability(formElements, false);
+  window.form.changeElementsAvailability(mapFilters, false);
 
   var onPressEnter = function (evt) {
     if (evt.keyCode === window.ENTER_KEYCODE) {
@@ -49,11 +49,11 @@
   };
 
   var activateForm = function () {
-    window.changeElementsAvailability(formElements, true);
-    window.changeElementsAvailability(mapFilters, true);
+    window.form.changeElementsAvailability(formElements, true);
+    window.form.changeElementsAvailability(mapFilters, true);
     activateMap(true);
     setAdress(mainPin);
-    window.checkGuestValidity();
+    window.form.checkGuestValidity();
     mainPin.removeEventListener('mousedown', activateForm);
     mainPin.removeEventListener('keydown', onPressEnter);
   };
@@ -130,7 +130,7 @@
   mainPin.addEventListener('mousedown', onMovePin);
 
   roomsNumber.addEventListener('change', function () {
-    window.checkGuestValidity();
+    window.form.checkGuestValidity();
   });
 
   var setPinDefault = function () {
@@ -139,7 +139,8 @@
     setAdress(mainPin);
   };
 
-  window.mapfunction = {
+  window.map = {
+    mapSection: mapSection,
     setPinDefault: setPinDefault
-  }
+  };
 })();

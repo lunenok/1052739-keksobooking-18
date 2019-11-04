@@ -35,6 +35,10 @@
     for (var i = 0; i < window.DATA.length; i++) {
       fragment.appendChild(renderAd(window.DATA[i], i));
     }
-    window.map.appendChild(fragment);
+    window.map.mapSection.appendChild(fragment);
+  };
+
+  window.pin = {
+    pinSuccessHandler: pinSuccessHandler
   };
 })();
