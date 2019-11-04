@@ -27,7 +27,7 @@
       adFade.classList.remove('ad-form--disabled');
       mapSection.classList.remove('map--faded');
       window.form.checkMinPrice();
-      window.pinSuccessHandler();
+      window.pin.pinSuccessHandler();
     } else {
       mapFeatures.setAttribute('disabled', true);
     }

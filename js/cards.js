@@ -76,7 +76,7 @@
     return cardElement;
   };
 
-  window.cardHandler = function (index) {
+  var cardHandler = function (index) {
     var existCard = document.querySelector('.map__card');
     if (existCard) {
       window.map.mapSection.removeChild(existCard);
@@ -84,5 +84,9 @@
     var fragment = document.createDocumentFragment();
     fragment.appendChild(renderCard(index));
     window.map.mapSection.appendChild(fragment);
+  };
+
+  window.cards = {
+    cardHandler: cardHandler
   };
 })();

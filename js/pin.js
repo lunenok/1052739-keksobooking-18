@@ -14,7 +14,7 @@
       id = element.getAttribute('rel');
     }
 
-    window.cardHandler(id);
+    window.cards.cardHandler(id);
   };
 
   var renderAd = function (ad, index) {
@@ -30,7 +30,7 @@
     return pinElement;
   };
 
-  window.pinSuccessHandler = function () {
+  var pinSuccessHandler = function () {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < window.DATA.length; i++) {
       fragment.appendChild(renderAd(window.DATA[i], i));
