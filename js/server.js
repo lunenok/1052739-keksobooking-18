@@ -42,7 +42,7 @@
   };
 
   var getAdByIndex = function (index) {
-    return window.DATA[index]
+    return window.DATA[index];
   };
 
   var upload = function (data, onSuccess, onError) {
@@ -74,6 +74,7 @@
     load: load,
     errorHandler: errorHandler,
     setAds: setAds,
-    upload: upload
+    upload: upload,
+    getAdByIndex: getAdByIndex
   };
 })();

@@ -33,7 +33,7 @@
   var pinSuccessHandler = function () {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < window.DATA.length; i++) {
-      fragment.appendChild(renderAd(window.DATA[i], i));
+      fragment.appendChild(renderAd(window.server.getAdByIndex(i), i));
     }
     window.map.mapSection.appendChild(fragment);
   };

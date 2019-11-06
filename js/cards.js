@@ -17,21 +17,21 @@
     var features = cardElement.querySelector('.popup__features');
     var closeButton = cardElement.querySelector('.popup__close');
 
-    cardElement.querySelector('.popup__title').textContent = window.DATA[index].offer.title;
-    cardElement.querySelector('.popup__text--address').textContent = window.DATA[index].offer.adress;
-    cardElement.querySelector('.popup__text--price').textContent = window.DATA[index].offer.price + '₽/ночь';
-    cardElement.querySelector('.popup__type').textContent = TypeOffers[window.DATA[index].offer.type];
-    cardElement.querySelector('.popup__text--capacity').textContent = window.DATA[index].offer.rooms + ' комнаты для ' + window.DATA[index].offer.guests + ' гостей';
-    cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + window.DATA[index].offer.checkin + ', выезд до ' + window.DATA[index].offer.checkout;
-    cardElement.querySelector('.popup__description').textContent = window.DATA[index].offer.description;
-    cardElement.querySelector('.popup__avatar').setAttribute('src', window.DATA[index].author.avatar);
+    cardElement.querySelector('.popup__title').textContent = window.server.getAdByIndex(index).offer.title;
+    cardElement.querySelector('.popup__text--address').textContent = window.server.getAdByIndex(index).offer.adress;
+    cardElement.querySelector('.popup__text--price').textContent = window.server.getAdByIndex(index).offer.price + '₽/ночь';
+    cardElement.querySelector('.popup__type').textContent = TypeOffers[window.server.getAdByIndex(index).offer.type];
+    cardElement.querySelector('.popup__text--capacity').textContent = window.server.getAdByIndex(index).offer.rooms + ' комнаты для ' + window.server.getAdByIndex(index).offer.guests + ' гостей';
+    cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + window.server.getAdByIndex(index).offer.checkin + ', выезд до ' + window.server.getAdByIndex(index).offer.checkout;
+    cardElement.querySelector('.popup__description').textContent = window.server.getAdByIndex(index).offer.description;
+    cardElement.querySelector('.popup__avatar').setAttribute('src', window.server.getAdByIndex(index).author.avatar);
 
     var renderFeatures = function () {
       features.innerHTML = '';
 
-      for (var i = 0; i < window.DATA[index].offer.features.length; i++) {
+      for (var i = 0; i < window.server.getAdByIndex(index).offer.features.length; i++) {
         var newFeature = document.createElement('li');
-        newFeature.classList.add('popup__feature', 'popup__feature--' + window.DATA[index].offer.features[i]);
+        newFeature.classList.add('popup__feature', 'popup__feature--' + window.server.getAdByIndex(index).offer.features[i]);
         features.appendChild(newFeature);
       }
     };
@@ -45,8 +45,8 @@
     };
 
     var addPhoto = function () {
-      for (var i = 0; i < window.DATA[index].offer.photos.length; i++) {
-        similarListPhotos.appendChild(renderPhoto(window.DATA[index].offer.photos[i]));
+      for (var i = 0; i < window.server.getAdByIndex(index).offer.photos.length; i++) {
+        similarListPhotos.appendChild(renderPhoto(window.server.getAdByIndex(index).offer.photos[i]));
       }
       similarListPhotos.removeChild(defaultPhoto);
     };
