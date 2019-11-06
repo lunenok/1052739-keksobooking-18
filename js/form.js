@@ -124,25 +124,25 @@
     reset();
   };
 
-  var successUpload = function () {
+  var onUploadSuccess = function () {
     window.map.mapSection.appendChild(successUploadForm);
     document.addEventListener('keydown', onSuccessWindowEsc);
     document.addEventListener('mousedown', onSuccessWindowMouseDown);
   };
 
-  var renderErrorWindow = function (message) {
+  var onUploadFailed = function (message) {
     var errorWindow = badUploadForm.cloneNode(true);
     var newElement = document.createElement('p');
     var elementBefore = errorWindow.querySelector('.error__message');
     newElement.textContent = message;
-    newElement.style = 'color: white; font: 24px';
+    newElement.setAttribute('class', 'error__info');
     elementBefore.parentNode.insertBefore(newElement, elementBefore.nextSibling);
     window.map.mapSection.appendChild(errorWindow);
   };
 
   adForm.addEventListener('submit', function (evt) {
-    window.upload.upload(new FormData(adForm), successUpload, renderErrorWindow);
     evt.preventDefault();
+    window.server.upload(new FormData(adForm), onUploadSuccess, onUploadFailed);
   });
 
   window.form = {

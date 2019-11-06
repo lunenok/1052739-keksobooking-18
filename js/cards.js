@@ -26,7 +26,7 @@
     cardElement.querySelector('.popup__description').textContent = window.DATA[index].offer.description;
     cardElement.querySelector('.popup__avatar').setAttribute('src', window.DATA[index].author.avatar);
 
-    var setFeatures = function () {
+    var renderFeatures = function () {
       features.innerHTML = '';
 
       for (var i = 0; i < window.DATA[index].offer.features.length; i++) {
@@ -36,7 +36,7 @@
       }
     };
 
-    setFeatures();
+    renderFeatures();
 
     var renderPhoto = function (photoSource) {
       var photoElement = cardElement.querySelector('.popup__photo').cloneNode(true);
