@@ -61,7 +61,6 @@
     };
 
     var onCardEsc = function (evt) {
-      // evt.preventDefault();
       if (evt.keyCode === window.ESC_KEYCODE) {
         cardElement.remove();
         document.removeEventListener('keydown', onCardEsc);
@@ -81,9 +80,7 @@
     if (existCard) {
       window.map.mapSection.removeChild(existCard);
     }
-    var fragment = document.createDocumentFragment();
-    fragment.appendChild(renderCard(index));
-    window.map.mapSection.appendChild(fragment);
+    window.map.mapSection.appendChild(renderCard(index));
   };
 
   window.cards = {
