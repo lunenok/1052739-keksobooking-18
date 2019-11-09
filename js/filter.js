@@ -38,4 +38,6 @@
 
   roomType.addEventListener('change', onRoomTypeChange);
 
+  // Изменение для пул реквеста
+
 })();
