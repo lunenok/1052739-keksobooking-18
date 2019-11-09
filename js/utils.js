@@ -1,7 +1,9 @@
 'use strict';
 
 (function () {
+
   window.ENTER_KEYCODE = 13;
+  window.ESC_KEYCODE = 27;
 
   var getRandomInterval = function (min, max) {
     return Math.floor(Math.random() * (max - min) + min);

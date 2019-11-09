@@ -1248,3 +1248,8 @@ fieldset {
   outline: none;
   opacity: 0.6;
 }
+
+.error__info {
+  font-size: 24px;
+  color: white;
+}
