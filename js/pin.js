@@ -24,15 +24,25 @@
     pinElement.setAttribute('alt', ad.offer.title);
     pinElement.querySelector('img').setAttribute('src', ad.author.avatar);
     pinElement.setAttribute('rel', index);
+    pinElement.setAttribute('class', 'map__pin pin__added');
 
     pinElement.addEventListener('click', onPinClick);
 
     return pinElement;
   };
 
+  var clearPins = function () {
+    var existingPins = document.querySelectorAll('.pin__added');
+    [].forEach.call(existingPins, function (element) {
+      element.parentNode.removeChild(element);
+    });
+  };
+
   var pinSuccessHandler = function () {
+    clearPins();
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < window.DATA.length; i++) {
+    var elementCount = window.filter.filterData(window.DATA).length;
+    for (var i = 0; i < elementCount; i++) {
       fragment.appendChild(renderAd(window.server.getAdByIndex(i), i));
     }
     window.map.mapSection.appendChild(fragment);

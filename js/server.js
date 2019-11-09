@@ -41,10 +41,6 @@
     window.DATA = loadedData;
   };
 
-  var getAdByIndex = function (index) {
-    return window.DATA[index];
-  };
-
   var upload = function (data, onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -70,6 +66,11 @@
     xhr.send(data);
   };
 
+  var getAdByIndex = function (index) {
+    var filteredData = window.filter.filterData(window.DATA);
+    return filteredData[index];
+  };
+
   window.server = {
     load: load,
     errorHandler: errorHandler,
@@ -77,4 +78,7 @@
     upload: upload,
     getAdByIndex: getAdByIndex
   };
+
+  window.server.load(window.server.setAds, window.server.errorHandler);
+
 })();

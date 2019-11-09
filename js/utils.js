@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+
   window.ENTER_KEYCODE = 13;
   window.ESC_KEYCODE = 27;
 

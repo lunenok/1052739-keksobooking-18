@@ -19,7 +19,7 @@
   var roomsNumber = document.querySelector('select[name=rooms]');
   var adFade = document.querySelector('.ad-form ');
 
-  window.server.load(window.server.setAds, window.server.errorHandler);
+  // window.server.load(window.server.setAds, window.server.errorHandler);
 
   var activateMap = function (state) {
     if (state) {
