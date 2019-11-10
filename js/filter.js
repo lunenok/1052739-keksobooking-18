@@ -80,8 +80,16 @@
       .slice(0, MAX_PIN_COUNT);
   };
 
+  var setFilterDefault = function () {
+    roomTypeSelect.value = DEFAULT_FILTER_VALUE;
+    roomsCountSelect.value = DEFAULT_FILTER_VALUE;
+    guestCountSelect.value = DEFAULT_FILTER_VALUE;
+    priceValueSelect.value = PRICE_INTERVALS.any;
+  };
+
   window.filter = {
-    filterData: filterData
+    filterData: filterData,
+    setFilterDefault: setFilterDefault
   };
 
   var onFilterChange = function () {

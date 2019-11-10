@@ -13,6 +13,7 @@
   var adForm = document.querySelector('.ad-form');
   var successUploadForm = document.querySelector('#success').content.querySelector('.success');
   var badUploadForm = document.querySelector('#error').content.querySelector('.error');
+  var resetButton = document.querySelector('.ad-form__reset');
   var roomsMaxCapacity = {
     1: 1,
     2: 2,
@@ -143,7 +144,15 @@
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.server.upload(new FormData(adForm), onUploadSuccess, onUploadFailed);
+    window.filter.setFilterDefault();
   });
+
+  resetButton.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    reset();
+    window.pin.clearPins();
+    window.filter.setFilterDefault();
+  })
 
   window.form = {
     checkMinPrice: checkMinPrice,

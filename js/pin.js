@@ -49,6 +49,7 @@
   };
 
   window.pin = {
-    pinSuccessHandler: pinSuccessHandler
+    pinSuccessHandler: pinSuccessHandler,
+    clearPins: clearPins
   };
 })();
