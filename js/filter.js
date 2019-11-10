@@ -6,6 +6,7 @@
   var roomTypeSelect = document.querySelector('#housing-type');
   var priceValueSelect = document.querySelector('#housing-price');
   var featuresSelect = document.querySelector('#housing-features');
+  var DEBOUNCE_INTERVAL = 500;
   var MAX_PIN_COUNT = 5;
   var DEFAULT_FILTER_VALUE = 'any';
   var PRICE_INTERVALS = {
@@ -22,6 +23,20 @@
       min: 50000,
       max: Infinity
     }
+  };
+
+  window.debounce = function (cb) {
+    var lastTimeout = null;
+
+    return function() {
+      var parameters = arguments;
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout(function() {
+        cb.apply(null, parameters);
+      }, DEBOUNCE_INTERVAL);
+    };
   };
 
   var typeFilter = function (item) {
@@ -73,9 +88,9 @@
     window.pin.pinSuccessHandler();
   };
 
-  roomTypeSelect.addEventListener('change', onFilterChange);
-  guestCountSelect.addEventListener('change', onFilterChange);
-  roomsCountSelect.addEventListener('change', onFilterChange);
-  priceValueSelect.addEventListener('change', onFilterChange);
-  featuresSelect.addEventListener('change', onFilterChange);
+  roomTypeSelect.addEventListener('change', window.debounce(onFilterChange));
+  guestCountSelect.addEventListener('change', window.debounce(onFilterChange));
+  roomsCountSelect.addEventListener('change', window.debounce(onFilterChange));
+  priceValueSelect.addEventListener('change', window.debounce(onFilterChange));
+  featuresSelect.addEventListener('change', window.debounce(onFilterChange));
 })();
