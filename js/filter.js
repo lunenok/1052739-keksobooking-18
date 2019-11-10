@@ -1,11 +1,11 @@
 'use strict';
 
 (function () {
-  var roomsCount = document.querySelector('#housing-rooms');
-  var guestsCount = document.querySelector('#housing-guests');
-  var roomType = document.querySelector('#housing-type');
-  var priceValueInput = document.querySelector('#housing-price');
-  var featuresInput = document.querySelector('#housing-features');
+  var roomsCountSelect = document.querySelector('#housing-rooms');
+  var guestCountSelect = document.querySelector('#housing-guests');
+  var roomTypeSelect = document.querySelector('#housing-type');
+  var priceValueSelect = document.querySelector('#housing-price');
+  var featuresSelect = document.querySelector('#housing-features');
   var MAX_PIN_COUNT = 5;
   var DEFAULT_FILTER_VALUE = 'any';
   var PRICE_INTERVALS = {
@@ -25,12 +25,12 @@
   };
 
   var typeFilter = function (item) {
-    var selectedType = roomType.options[roomType.selectedIndex].value;
+    var selectedType = roomTypeSelect.options[roomTypeSelect.selectedIndex].value;
     return selectedType === DEFAULT_FILTER_VALUE ? true : item.offer.type === selectedType;
   };
 
   var priceFilter = function (item) {
-    var selectedPrice = priceValueInput.options[priceValueInput.selectedIndex].value;
+    var selectedPrice = priceValueSelect.options[priceValueSelect.selectedIndex].value;
     var priceValue = item.offer.price;
     return selectedPrice === PRICE_INTERVALS.any
       ? true
@@ -39,15 +39,15 @@
   };
 
   var roomsFilter = function (item) {
-    return roomsCount.value === DEFAULT_FILTER_VALUE ? true : item.offer.rooms === parseInt(roomsCount.value, 10);
+    return roomsCountSelect.value === DEFAULT_FILTER_VALUE ? true : item.offer.rooms === parseInt(roomsCountSelect.value, 10);
   };
 
   var guestsFilter = function (item) {
-    return guestsCount.value === DEFAULT_FILTER_VALUE ? true : item.offer.guests === parseInt(guestsCount.value, 10);
+    return guestCountSelect.value === DEFAULT_FILTER_VALUE ? true : item.offer.guests === parseInt(guestCountSelect.value, 10);
   };
 
   var featuresFilter = function (item) {
-    var checkedFeatures = [].slice.call(featuresInput.querySelectorAll('input[type="checkbox"]:checked'));
+    var checkedFeatures = [].slice.call(featuresSelect.querySelectorAll('input[type="checkbox"]:checked'));
     var featuresValue = checkedFeatures.map(function (feature) {
       return feature.value;
     });
@@ -69,12 +69,13 @@
     filterData: filterData
   };
 
-  var onRoomTypeChange = function () {
+  var onFilterChange = function () {
     window.pin.pinSuccessHandler();
   };
 
-  roomType.addEventListener('change', onRoomTypeChange);
-
-  // Изменение для пул реквеста
-
+  roomTypeSelect.addEventListener('change', onFilterChange);
+  guestCountSelect.addEventListener('change', onFilterChange);
+  roomsCountSelect.addEventListener('change', onFilterChange);
+  priceValueSelect.addEventListener('change', onFilterChange);
+  featuresSelect.addEventListener('change', onFilterChange);
 })();
