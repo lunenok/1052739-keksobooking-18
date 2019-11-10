@@ -81,10 +81,8 @@
   };
 
   var setFilterDefault = function () {
-    roomTypeSelect.value = DEFAULT_FILTER_VALUE;
-    roomsCountSelect.value = DEFAULT_FILTER_VALUE;
-    guestCountSelect.value = DEFAULT_FILTER_VALUE;
-    priceValueSelect.value = PRICE_INTERVALS.any;
+    var filtersForm = document.querySelector('.map__filters');
+    filtersForm.reset();
   };
 
   window.filter = {
@@ -94,6 +92,7 @@
 
   var onFilterChange = function () {
     window.pin.pinSuccessHandler();
+    window.cards.removeCard();
   };
 
   roomTypeSelect.addEventListener('change', window.debounce(onFilterChange));

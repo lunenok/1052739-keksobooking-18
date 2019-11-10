@@ -5,7 +5,7 @@
   var PIN_HEIGHT = 87;
   var MAP_WIDTH = 1200;
   var MAP_HEIGHT = 630;
-  var MAP_SKY_Y = 170;
+  var MAP_SKY_Y = 130;
   var DEFAULT_PIN_COORD = {
     x: 570,
     y: 375
@@ -34,8 +34,8 @@
   };
 
   var setAdress = function (pin) {
-    var x = pin.offsetTop + Math.floor(PIN_WIDTH / 2);
-    var y = pin.offsetLeft + Math.floor(PIN_HEIGHT / 2);
+    var y = pin.offsetTop + Math.floor(PIN_WIDTH / 2);
+    var x = pin.offsetLeft + Math.floor(PIN_HEIGHT);
     adressInput.value = 'X: ' + x + ', Y: ' + y;
   };
 

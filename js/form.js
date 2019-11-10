@@ -113,6 +113,7 @@
     if (evt.keyCode === window.ESC_KEYCODE) {
       successForm.remove();
       reset();
+      document.removeEventListener('mousedown', onSuccessWindowMouseDown);
       document.removeEventListener('keydown', onSuccessWindowEsc);
     }
   };
@@ -122,13 +123,32 @@
     var successForm = document.querySelector('.success');
     successForm.remove();
     document.removeEventListener('mousedown', onSuccessWindowMouseDown);
+    document.removeEventListener('keydown', onSuccessWindowEsc);
     reset();
   };
 
   var onUploadSuccess = function () {
     window.map.mapSection.appendChild(successUploadForm);
+    reset();
     document.addEventListener('keydown', onSuccessWindowEsc);
     document.addEventListener('mousedown', onSuccessWindowMouseDown);
+  };
+
+  var onErrorWindowEsc = function (evt) {
+    evt.preventDefault();
+    var errorForm = document.querySelector('.error');
+    if (evt.keyCode === window.ESC_KEYCODE) {
+      errorForm.remove();
+      document.removeEventListener('keydown', onErrorWindowEsc);
+    }
+  };
+
+  var onErrorWindowMouseDown = function (evt) {
+    evt.preventDefault();
+    var errorForm = document.querySelector('.error');
+    errorForm.remove();
+    document.removeEventListener('keydown', onErrorWindowEsc);
+    document.removeEventListener('mousedown', onErrorWindowMouseDown);
   };
 
   var onUploadFailed = function (message) {
@@ -139,20 +159,36 @@
     newElement.setAttribute('class', 'error__info');
     elementBefore.parentNode.insertBefore(newElement, elementBefore.nextSibling);
     window.map.mapSection.appendChild(errorWindow);
+    document.addEventListener('keydown', onErrorWindowEsc);
+    document.addEventListener('mousedown', onErrorWindowMouseDown);
   };
 
-  adForm.addEventListener('submit', function (evt) {
+  var onResetClick = function (evt) {
+    var existCard = document.querySelector('.map__card');
     evt.preventDefault();
-    window.server.upload(new FormData(adForm), onUploadSuccess, onUploadFailed);
-    window.filter.setFilterDefault();
-  });
-
-  resetButton.addEventListener('click', function (evt) {
-    evt.preventDefault();
+    if (existCard) {
+      window.map.mapSection.removeChild(existCard);
+    }
     reset();
     window.pin.clearPins();
     window.filter.setFilterDefault();
-  })
+  };
+
+  var onSubmitClick = function (evt) {
+    var existCard = document.querySelector('.map__card');
+    evt.preventDefault();
+    window.server.upload(new FormData(adForm), onUploadSuccess, onUploadFailed);
+    if (existCard) {
+      window.map.mapSection.removeChild(existCard);
+    }
+    // reset();
+    window.pin.clearPins();
+    window.filter.setFilterDefault();
+  };
+
+  adForm.addEventListener('submit', onSubmitClick);
+
+  resetButton.addEventListener('click', onResetClick);
 
   window.form = {
     checkMinPrice: checkMinPrice,
