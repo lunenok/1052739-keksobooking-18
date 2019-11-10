@@ -5,6 +5,7 @@
   var guestsCount = document.querySelector('#housing-guests');
   var roomType = document.querySelector('#housing-type');
   var priceValueInput = document.querySelector('#housing-price');
+  var featuresInput = document.querySelector('#housing-features');
   var MAX_PIN_COUNT = 5;
   var DEFAULT_FILTER_VALUE = 'any';
   var PRICE_INTERVALS = {
@@ -45,10 +46,21 @@
     return guestsCount.value === DEFAULT_FILTER_VALUE ? true : item.offer.guests === parseInt(guestsCount.value, 10);
   };
 
+  var featuresFilter = function (item) {
+    var checkedFeatures = [].slice.call(featuresInput.querySelectorAll('input[type="checkbox"]:checked'));
+    var featuresValue = checkedFeatures.map(function (feature) {
+      return feature.value;
+    });
+
+    return featuresValue.every(function (feature) {
+      return item.offer.features.includes(feature);
+    });
+  };
+
   var filterData = function (data) {
     return data
       .filter(function (item) {
-        return typeFilter(item) && roomsFilter(item) && guestsFilter(item) && priceFilter(item);
+        return typeFilter(item) && roomsFilter(item) && guestsFilter(item) && priceFilter(item) && featuresFilter(item);
       })
       .slice(0, MAX_PIN_COUNT);
   };
