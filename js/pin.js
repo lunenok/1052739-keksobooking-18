@@ -4,14 +4,20 @@
   var similarPin = document.querySelector('#pin').content.querySelector('.map__pin');
 
   var onPinClick = function (evt) {
+    var pinCollection = document.querySelectorAll('.map__pin');
+    var element = evt.target;
     var id;
 
-    var element = evt.target;
+    pinCollection.forEach(function (el) {
+      el.classList.remove('map__pin--active');
+    });
 
     if (element.tagName === 'IMG') {
       id = element.parentNode.getAttribute('rel');
+      element.parentNode.classList.add('map__pin--active');
     } else {
       id = element.getAttribute('rel');
+      element.classList.add('map__pin--active');
     }
 
     window.cards.cardHandler(id);
@@ -49,6 +55,7 @@
   };
 
   window.pin = {
-    pinSuccessHandler: pinSuccessHandler
+    pinSuccessHandler: pinSuccessHandler,
+    clearPins: clearPins
   };
 })();

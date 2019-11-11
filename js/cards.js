@@ -75,15 +75,20 @@
     return cardElement;
   };
 
-  var cardHandler = function (index) {
+  var removeCard = function () {
     var existCard = document.querySelector('.map__card');
     if (existCard) {
       window.map.mapSection.removeChild(existCard);
     }
+  };
+
+  var cardHandler = function (index) {
+    removeCard();
     window.map.mapSection.appendChild(renderCard(index));
   };
 
   window.cards = {
-    cardHandler: cardHandler
+    cardHandler: cardHandler,
+    removeCard: removeCard
   };
 })();

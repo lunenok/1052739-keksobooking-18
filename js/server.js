@@ -38,7 +38,9 @@
   };
 
   var setAds = function (loadedData) {
-    window.DATA = loadedData;
+    window.DATA = loadedData.filter(function (it) {
+      return !!it.offer;
+    });
   };
 
   var upload = function (data, onSuccess, onError) {
