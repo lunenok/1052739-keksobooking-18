@@ -14,13 +14,13 @@
   var successUploadForm = document.querySelector('#success').content.querySelector('.success');
   var badUploadForm = document.querySelector('#error').content.querySelector('.error');
   var resetButton = document.querySelector('.ad-form__reset');
-  var roomsMaxCapacity = {
+  var RoomsMaxCapacity = {
     1: 1,
     2: 2,
     3: 3,
     100: 0
   };
-  var MIN_PRICE = {
+  var MinPrice = {
     'bungalo': 0,
     'flat': 1000,
     'house': 5000,
@@ -46,7 +46,7 @@
     }
 
     for (var n = 0; n < guestsArray.length - 1; n++) {
-      if (guestsArray[n].value > roomsMaxCapacity[rooms]) {
+      if (guestsArray[n].value > RoomsMaxCapacity[rooms]) {
         guestsArray[n].setAttribute('disabled', true);
         guestsArray[n].removeAttribute('selected', true);
         guestsArray[n + 1].setAttribute('selected', true); // делаем максимальный элемент активным
@@ -68,7 +68,7 @@
 
   var checkMinPrice = function () {
     var curentType = apartamentType.value;
-    var minPrice = MIN_PRICE[curentType];
+    var minPrice = MinPrice[curentType];
     priceInput.setAttribute('placeholder', minPrice);
     priceInput.setAttribute('min', minPrice);
   };
@@ -82,7 +82,7 @@
     } else if (priceInput.validity.rangeOverflow) {
       priceInput.setCustomValidity('Не должно быть больше 1 000 000');
     } else if (priceInput.validity.rangeUnderflow) {
-      priceInput.setCustomValidity('Минимальная стоимость для выбранного типа жилья: ' + MIN_PRICE[curentType] + ' руб.');
+      priceInput.setCustomValidity('Минимальная стоимость для выбранного типа жилья: ' + MinPrice[curentType] + ' руб.');
     } else if (priceInput.validity.valueMissing) {
       priceInput.setCustomValidity('Обязательное поле');
     } else {

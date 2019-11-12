@@ -6,7 +6,7 @@
   var MAP_WIDTH = 1200;
   var MAP_HEIGHT = 630;
   var MAP_SKY_Y = 130;
-  var DEFAULT_PIN_COORD = {
+  var DefaultPinCoord = {
     x: 570,
     y: 375
   };
@@ -134,8 +134,8 @@
   });
 
   var setPinDefault = function () {
-    mainPin.style.left = DEFAULT_PIN_COORD.x + 'px';
-    mainPin.style.top = DEFAULT_PIN_COORD.y + 'px';
+    mainPin.style.left = DefaultPinCoord.x + 'px';
+    mainPin.style.top = DefaultPinCoord.y + 'px';
     setAdress(mainPin);
   };
 
