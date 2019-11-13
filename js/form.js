@@ -1,10 +1,9 @@
 'use strict';
 
 (function () {
-  var roomsNumber = document.querySelector('select[name=rooms]');
   var guestsNumber = document.querySelector('select[name=capacity]');
+  var roomsNumber = document.querySelector('#room_number');
   var guestsArray = guestsNumber.querySelectorAll('option');
-  var guestsCount = guestsArray.length - 1;
   var headlineInput = document.querySelector('#title');
   var priceInput = document.querySelector('#price');
   var apartamentType = document.querySelector('#type');
@@ -14,13 +13,15 @@
   var successUploadForm = document.querySelector('#success').content.querySelector('.success');
   var badUploadForm = document.querySelector('#error').content.querySelector('.error');
   var resetButton = document.querySelector('.ad-form__reset');
-  var roomsMaxCapacity = {
-    1: 1,
-    2: 2,
-    3: 3,
-    100: 0
+  window.ENTER_KEYCODE = 13;
+  window.ESC_KEYCODE = 27;
+  var RoomsMaxCapacity = {
+    1: [1],
+    2: [1, 2],
+    3: [1, 2, 3],
+    100: [0]
   };
-  var MIN_PRICE = {
+  var MinPrice = {
     'bungalo': 0,
     'flat': 1000,
     'house': 5000,
@@ -38,20 +39,16 @@
   };
 
   var checkGuestValidity = function () {
-    var rooms = roomsNumber.options[roomsNumber.selectedIndex].value;
+    var rooms = roomsNumber.value;
 
-    for (var i = 0; i <= guestsCount; i++) {
-      guestsArray[i].removeAttribute('disabled');
-      guestsArray[i].removeAttribute('selected');
-    }
+    guestsArray.forEach(function (el) {
+      el.disabled = true;
+    });
 
-    for (var n = 0; n < guestsArray.length - 1; n++) {
-      if (guestsArray[n].value > roomsMaxCapacity[rooms]) {
-        guestsArray[n].setAttribute('disabled', true);
-        guestsArray[n].removeAttribute('selected', true);
-        guestsArray[n + 1].setAttribute('selected', true); // делаем максимальный элемент активным
-      }
-    }
+    RoomsMaxCapacity[rooms].forEach(function (el) {
+      guestsNumber.querySelector('option[value="' + el + '"]').disabled = false;
+      guestsNumber.value = el;
+    });
   };
 
   headlineInput.addEventListener('invalid', function () {
@@ -68,7 +65,7 @@
 
   var checkMinPrice = function () {
     var curentType = apartamentType.value;
-    var minPrice = MIN_PRICE[curentType];
+    var minPrice = MinPrice[curentType];
     priceInput.setAttribute('placeholder', minPrice);
     priceInput.setAttribute('min', minPrice);
   };
@@ -82,7 +79,7 @@
     } else if (priceInput.validity.rangeOverflow) {
       priceInput.setCustomValidity('Не должно быть больше 1 000 000');
     } else if (priceInput.validity.rangeUnderflow) {
-      priceInput.setCustomValidity('Минимальная стоимость для выбранного типа жилья: ' + MIN_PRICE[curentType] + ' руб.');
+      priceInput.setCustomValidity('Минимальная стоимость для выбранного типа жилья: ' + MinPrice[curentType] + ' руб.');
     } else if (priceInput.validity.valueMissing) {
       priceInput.setCustomValidity('Обязательное поле');
     } else {
@@ -105,6 +102,12 @@
   var reset = function () {
     adForm.reset();
     window.map.setPinDefault();
+    window.form.changeElementsAvailability(window.map.formElements, false);
+    window.form.changeElementsAvailability(window.map.mapFilters, false);
+    window.map.mainPin.addEventListener('mousedown', window.map.activateForm);
+    window.map.mainPin.addEventListener('keydown', window.map.onPressEnter);
+    window.map.mapSection.classList.add('map--faded');
+    window.map.adFade.classList.add('ad-form--disabled');
   };
 
   var onSuccessWindowEsc = function (evt) {
@@ -181,7 +184,6 @@
     if (existCard) {
       window.map.mapSection.removeChild(existCard);
     }
-    // reset();
     window.pin.clearPins();
     window.filter.setFilterDefault();
   };

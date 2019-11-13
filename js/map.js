@@ -3,10 +3,9 @@
 (function () {
   var PIN_WIDTH = 65;
   var PIN_HEIGHT = 87;
-  var MAP_WIDTH = 1200;
   var MAP_HEIGHT = 630;
   var MAP_SKY_Y = 130;
-  var DEFAULT_PIN_COORD = {
+  var DefaultPinCoord = {
     x: 570,
     y: 375
   };
@@ -18,8 +17,6 @@
   var adressInput = document.querySelector('input[name=address]');
   var roomsNumber = document.querySelector('select[name=rooms]');
   var adFade = document.querySelector('.ad-form ');
-
-  // window.server.load(window.server.setAds, window.server.errorHandler);
 
   var activateMap = function (state) {
     if (state) {
@@ -36,7 +33,7 @@
   var setAdress = function (pin) {
     var y = pin.offsetTop + Math.floor(PIN_WIDTH / 2);
     var x = pin.offsetLeft + Math.floor(PIN_HEIGHT);
-    adressInput.value = 'X: ' + x + ', Y: ' + y;
+    adressInput.value = x + ', ' + y;
   };
 
   window.form.changeElementsAvailability(formElements, false);
@@ -89,9 +86,10 @@
 
       var mapCoord = {
         minX: -PIN_WIDTH / 2,
-        maxX: MAP_WIDTH - PIN_WIDTH / 2,
+        maxX: mapSection.offsetWidth - PIN_WIDTH / 2,
         maxY: MAP_HEIGHT,
         minY: MAP_SKY_Y - PIN_HEIGHT
+
       };
 
       if (mainPinPosition.x > mapCoord.minX && mainPinPosition.x < mapCoord.maxX) {
@@ -134,13 +132,19 @@
   });
 
   var setPinDefault = function () {
-    mainPin.style.left = DEFAULT_PIN_COORD.x + 'px';
-    mainPin.style.top = DEFAULT_PIN_COORD.y + 'px';
+    mainPin.style.left = DefaultPinCoord.x + 'px';
+    mainPin.style.top = DefaultPinCoord.y + 'px';
     setAdress(mainPin);
   };
 
   window.map = {
     mapSection: mapSection,
-    setPinDefault: setPinDefault
+    setPinDefault: setPinDefault,
+    formElements: formElements,
+    mapFilters: mapFilters,
+    activateForm: activateForm,
+    onPressEnter: onPressEnter,
+    mainPin: mainPin,
+    adFade: adFade
   };
 })();

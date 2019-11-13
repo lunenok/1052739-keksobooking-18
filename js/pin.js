@@ -26,7 +26,7 @@
   var renderAd = function (ad, index) {
     var pinElement = similarPin.cloneNode(true);
 
-    pinElement.setAttribute('style', 'left:' + ad.location.x + 'px' + '; top:' + ad.location.y + 'px');
+    pinElement.setAttribute('style', 'left:' + ad.location.x + 'px' + '; top:' + ad.location.y + 'px' + '; z-index: 0');
     pinElement.setAttribute('alt', ad.offer.title);
     pinElement.querySelector('img').setAttribute('src', ad.author.avatar);
     pinElement.setAttribute('rel', index);

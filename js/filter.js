@@ -9,7 +9,7 @@
   var DEBOUNCE_INTERVAL = 500;
   var MAX_PIN_COUNT = 5;
   var DEFAULT_FILTER_VALUE = 'any';
-  var PRICE_INTERVALS = {
+  var PriceIntervals = {
     any: 'any',
     low: {
       min: 0,
@@ -47,10 +47,10 @@
   var priceFilter = function (item) {
     var selectedPrice = priceValueSelect.options[priceValueSelect.selectedIndex].value;
     var priceValue = item.offer.price;
-    return selectedPrice === PRICE_INTERVALS.any
+    return selectedPrice === PriceIntervals.any
       ? true
-      : priceValue >= PRICE_INTERVALS[selectedPrice].min &&
-        priceValue <= PRICE_INTERVALS[selectedPrice].max;
+      : priceValue >= PriceIntervals[selectedPrice].min &&
+        priceValue <= PriceIntervals[selectedPrice].max;
   };
 
   var roomsFilter = function (item) {
