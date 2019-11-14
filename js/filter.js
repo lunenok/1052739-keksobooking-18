@@ -1,12 +1,6 @@
 'use strict';
 
 (function () {
-  var roomsCountSelect = document.querySelector('#housing-rooms');
-  var guestCountSelect = document.querySelector('#housing-guests');
-  var roomTypeSelect = document.querySelector('#housing-type');
-  var priceValueSelect = document.querySelector('#housing-price');
-  var featuresSelect = document.querySelector('#housing-features');
-  var DEBOUNCE_INTERVAL = 500;
   var MAX_PIN_COUNT = 5;
   var DEFAULT_FILTER_VALUE = 'any';
   var PriceIntervals = {
@@ -24,20 +18,11 @@
       max: Infinity
     }
   };
-
-  window.debounce = function (cb) {
-    var lastTimeout = null;
-
-    return function () {
-      var parameters = arguments;
-      if (lastTimeout) {
-        window.clearTimeout(lastTimeout);
-      }
-      lastTimeout = window.setTimeout(function () {
-        cb.apply(null, parameters);
-      }, DEBOUNCE_INTERVAL);
-    };
-  };
+  var roomsCountSelect = document.querySelector('#housing-rooms');
+  var guestCountSelect = document.querySelector('#housing-guests');
+  var roomTypeSelect = document.querySelector('#housing-type');
+  var priceValueSelect = document.querySelector('#housing-price');
+  var featuresSelect = document.querySelector('#housing-features');
 
   var typeFilter = function (item) {
     var selectedType = roomTypeSelect.options[roomTypeSelect.selectedIndex].value;
@@ -95,9 +80,9 @@
     window.cards.removeCard();
   };
 
-  roomTypeSelect.addEventListener('change', window.debounce(onFilterChange));
-  guestCountSelect.addEventListener('change', window.debounce(onFilterChange));
-  roomsCountSelect.addEventListener('change', window.debounce(onFilterChange));
-  priceValueSelect.addEventListener('change', window.debounce(onFilterChange));
-  featuresSelect.addEventListener('change', window.debounce(onFilterChange));
+  roomTypeSelect.addEventListener('change', window.utils.debounce(onFilterChange));
+  guestCountSelect.addEventListener('change', window.utils.debounce(onFilterChange));
+  roomsCountSelect.addEventListener('change', window.utils.debounce(onFilterChange));
+  priceValueSelect.addEventListener('change', window.utils.debounce(onFilterChange));
+  featuresSelect.addEventListener('change', window.utils.debounce(onFilterChange));
 })();

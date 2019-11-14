@@ -1,14 +1,13 @@
 'use strict';
 
 (function () {
-  var card = document.querySelector('#card').content.querySelector('.map__card');
-
   var TypeOffers = {
     palace: 'Дворец',
     flat: 'Квартира',
     house: 'Дом',
     bungalo: 'Бунгало'
   };
+  var card = document.querySelector('#card').content.querySelector('.map__card');
 
   var renderCard = function (index) {
     var cardElement = card.cloneNode(true);
