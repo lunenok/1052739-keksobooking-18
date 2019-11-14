@@ -1,16 +1,18 @@
 'use strict';
 
 (function () {
-  var URL__LOAD = 'https://js.dump.academy/keksobooking/data';
+  var URL_LOAD = 'https://js.dump.academy/keksobooking/data';
   var URL_SAVE = 'https://js.dump.academy/keksobooking';
   var XHR_OK_CODE = 200;
   var XHR_TIMEOUT_MAX = 10000;
+  var XHR_LOAD_METHOD = 'GET';
+  var XHR_UPLOAD_METHOD = 'POST';
 
   var load = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
-    xhr.open('GET', URL__LOAD);
+    xhr.open(XHR_LOAD_METHOD, URL_LOAD);
 
     xhr.addEventListener('load', function () {
       if (xhr.status === XHR_OK_CODE) {
@@ -64,7 +66,7 @@
 
     xhr.timeout = XHR_TIMEOUT_MAX;
 
-    xhr.open('POST', URL_SAVE);
+    xhr.open(XHR_UPLOAD_METHOD, URL_SAVE);
     xhr.send(data);
   };
 

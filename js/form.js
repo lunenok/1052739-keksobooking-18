@@ -1,6 +1,20 @@
 'use strict';
 
 (function () {
+  window.ENTER_KEYCODE = 13;
+  window.ESC_KEYCODE = 27;
+  var RoomsMaxCapacity = {
+    1: [1],
+    2: [1, 2],
+    3: [1, 2, 3],
+    100: [0]
+  };
+  var MinPrice = {
+    bungalo: 0,
+    flat: 1000,
+    house: 5000,
+    palace: 10000
+  };
   var guestsNumber = document.querySelector('select[name=capacity]');
   var roomsNumber = document.querySelector('#room_number');
   var guestsArray = guestsNumber.querySelectorAll('option');
@@ -13,20 +27,6 @@
   var successUploadForm = document.querySelector('#success').content.querySelector('.success');
   var badUploadForm = document.querySelector('#error').content.querySelector('.error');
   var resetButton = document.querySelector('.ad-form__reset');
-  window.ENTER_KEYCODE = 13;
-  window.ESC_KEYCODE = 27;
-  var RoomsMaxCapacity = {
-    1: [1],
-    2: [1, 2],
-    3: [1, 2, 3],
-    100: [0]
-  };
-  var MinPrice = {
-    'bungalo': 0,
-    'flat': 1000,
-    'house': 5000,
-    'palace': 10000
-  };
 
   var changeElementsAvailability = function (elements, status) {
     for (var i = 0; i < elements.length; i++) {
